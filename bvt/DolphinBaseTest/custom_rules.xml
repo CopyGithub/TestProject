@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+    name="custom_rules" default="debug" >
+    <property name="java.target" value="1.7" />
+    <property name="java.source" value="1.7" />
+</project>

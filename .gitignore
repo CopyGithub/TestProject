@@ -1,0 +1,13 @@
+bin
+build
+gen
+target
+.settings
+.classpath
+local.properties
+lint.xml
+build.xml
+*.apk
+
+#framework
+extra
