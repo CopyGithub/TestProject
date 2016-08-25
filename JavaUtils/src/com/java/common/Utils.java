@@ -9,9 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.FileChannel;
@@ -603,83 +601,5 @@ public class Utils {
             }
         }
         return devices;
-    }
-
-    /**
-     * 向指定 URL 发送请求
-     * 
-     * @param post
-     *            请求是否为post请求
-     * @param url
-     *            请求的url
-     * @param body
-     *            请求的body内容
-     * @param properties
-     *            设置的请求属性
-     * @return 返回请求的返回
-     */
-    public String sendRequest(boolean post, String url, String body,
-            HashMap<String, String> properties) {
-        PrintWriter out = null;
-        BufferedReader response = null;
-        String result = "";
-        try {
-            URL realUrl = new URL(url);
-            // 打开和URL之间的连接
-            HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
-            // 设置请求属性
-            if (properties != null && properties.size() != 0) {
-                Set<String> keys = properties.keySet();
-                for (String key : keys) {
-                    conn.setRequestProperty(key, properties.get(key));
-                }
-            }
-            if (post) {
-                conn.setDoOutput(true);
-                conn.setDoInput(true);
-                conn.setRequestMethod("POST");
-                // 获取URLConnection对象对应的输出流
-                out = new PrintWriter(conn.getOutputStream());
-                // 发送请求参数
-                out.print(body);
-                // flush输出流的缓冲
-                out.flush();
-            } else {
-                conn.connect();
-            }
-            // 获取响应代码
-            int responseCode = conn.getResponseCode();
-            if (HttpURLConnection.HTTP_OK == responseCode) {
-                // 定义BufferedReader输入流来读取URL的响应
-                response = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                String line;
-                while ((line = response.readLine()) != null) {
-                    result += line;
-                }
-            } else {
-                response = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-                String line;
-                while ((line = response.readLine()) != null) {
-                    result += line;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("发送请求出现异常！");
-            e.printStackTrace();
-        }
-        // 使用finally块来关闭输出流、输入流
-        finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-                if (response != null) {
-                    response.close();
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return result;
     }
 }
