@@ -69,6 +69,32 @@ public class Utils {
     }
 
     /**
+     * 重命名文件或文件夹名称
+     * 
+     * @param oldFile
+     *            旧文件
+     * @param newName
+     *            新文件名
+     * @return {@code true} 重命名成功，否则{@code false}
+     */
+    public boolean rename(File oldFile, String newName) {
+        String oldName = oldFile.getName();
+        if (newName != null) {
+            if (oldFile.isFile() && oldName.indexOf(".") > 0) {
+                String suffix = oldName.substring(oldName.lastIndexOf("."));
+                newName = newName.endsWith(suffix) ? newName : (newName + suffix);
+            }
+            try {
+                oldFile.renameTo(new File(oldFile.getParent() + File.separator + newName));
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    /**
      * 创建文件或目录
      * 
      * @param filePath
@@ -144,11 +170,17 @@ public class Utils {
                 in = new FileInputStream(fromPath).getChannel();
                 out = new FileOutputStream(toPath).getChannel();
                 in.transferTo(0, in.size(), out);
-                in.close();
-                out.close();
                 return true;
             } catch (IOException e) {
                 return false;
+            } finally {
+                try {
+                    in.close();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
         }
         for (String fileName : from.list()) {
