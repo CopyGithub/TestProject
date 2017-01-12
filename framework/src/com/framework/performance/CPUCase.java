@@ -27,7 +27,7 @@ public class CPUCase extends TestCase {
     protected void execute() {
         // 安装apk
         utils.installApk(adb, targetInfo, true);
-        javaUtils.createFileOrDir(Res.DIR_RESULT, true, false);
+        javaUtils.fileCreate(Res.DIR_RESULT, true, false);
         executor = new ScheduledThreadPoolExecutor(1);
         executor.scheduleWithFixedDelay(new MyRunnable(), 0, 1000, TimeUnit.MILLISECONDS);
         System.out.println("开始" + System.currentTimeMillis());

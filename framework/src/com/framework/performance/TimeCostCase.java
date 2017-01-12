@@ -21,7 +21,7 @@ class TimeCostCase extends TestCase {
     protected void execute() throws Exception {
         boolean flag = false;
         utils.installApk(adb, targetInfo, true);
-        javaUtils.createFileOrDir(Res.DIR_RESULT, true, false);
+        javaUtils.fileCreate(Res.DIR_RESULT, true, false);
         if (Res.LAUNCHER_TYPE[0].equals(taskInfo.testCaseName)) {
             flag = firstLauncher();
         } else if (Res.LAUNCHER_TYPE[1].equals(taskInfo.testCaseName)) {

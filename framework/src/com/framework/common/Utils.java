@@ -166,7 +166,7 @@ public class Utils {
     public void PullScreenShot(String adb, int versionCode, String classSimpleName) {
         ArrayList<String> contents = new ArrayList<String>();
         String ScreenShotPath = getScreenShotDir(versionCode, classSimpleName);
-        javaUtils.createFileOrDir(ScreenShotPath, true, true);
+        javaUtils.fileCreate(ScreenShotPath, true, true);
         javaUtils.runtimeExec(contents, cmdPull(adb, Res.DIR_PHONE_SCREENSHOT, ScreenShotPath), 20);
         javaUtils.printArrayString(contents);
     }

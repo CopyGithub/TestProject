@@ -26,7 +26,7 @@ public class CreateBackupData {
         String dirData = utils.getBackupDir(versionCode, classSimpleName);
         ArrayList<String> cmds = new ArrayList<String>();
         // 清理和创建使用的目录
-        javaUtils.createFileOrDir(dirData, true, true);
+        javaUtils.fileCreate(dirData, true, true);
         cmds.add(utils.cmdDelete(adb, Res.DIR_PHONE_BACKUP));
         cmds.add(utils.cmdMkdir(adb, Res.DIR_PHONE_TAR));
         cmds.add(utils.cmdMkdir(adb, Res.DIR_PHONE_DOLPHIN));

@@ -19,7 +19,7 @@ public class ApkInfoCompare {
      */
     public void execute(String target, String compare) throws Exception {
         Utils javaUtils = new Utils();
-        javaUtils.createFileOrDir(Res.DIR_RESULT, true, true);
+        javaUtils.fileCreate(Res.DIR_RESULT, true, true);
         String filePath = Res.DIR_RESULT + "apkInfo.txt";
         ApkInfo targetInfo = new ApkInfo(target);
         ApkInfo compareInfo = new ApkInfo(compare);

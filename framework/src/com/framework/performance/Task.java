@@ -63,8 +63,8 @@ public class Task {
                 break;
             }
         }
-        new UploadData().selectUploadData(Res.PERFORMANCE_UPLOAD_URL, "requestMap.json="
-                + new PerformanceReport().tidyJson(Res.DIR_RESULT));
+//        new UploadData().selectUploadData(Res.PERFORMANCE_UPLOAD_URL, "requestMap.json="
+//                + new PerformanceReport().tidyJson(Res.DIR_RESULT));
     }
 
     /**

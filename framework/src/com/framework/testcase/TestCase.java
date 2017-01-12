@@ -57,7 +57,7 @@ abstract class TestCase {
     }
 
     void executeCase(Report report, String adb, TestClass testClass) {
-        javaUtils.createFileOrDir(communication.getJsonFolder(adb), true, false);
+        javaUtils.fileCreate(communication.getJsonFolder(adb), true, false);
         Timer timer = new Timer();
         if (!testClass.className.equals(Res.CASE_REPLACE_DATA)) {
             timer.schedule(new MyTimerTask(adb, testClass.classSimpleName), 1000, 1000);
