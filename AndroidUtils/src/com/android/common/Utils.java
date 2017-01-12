@@ -175,7 +175,8 @@ public class Utils {
      *            {@code true}:表示需要验证长宽一致
      * @return {@code -1}:表示位置关系不正确, 其它值都表示位置关系正确,数值表示两个{@link View}之间的空隙长度
      */
-    public int ubietyOfView(View one, View two, boolean landscape, boolean aligning, boolean matrix) {
+    public int ubietyOfView(View one, View two, boolean landscape, boolean aligning,
+            boolean matrix) {
         if (one == null || two == null) {
             Assert.assertTrue("传入的View不能为空", false);
         }
@@ -334,7 +335,7 @@ public class Utils {
      *            堆积文件的目录
      */
     public void cramSD(int residualSpace, String filePath) {
-        utils.createFileOrDir(filePath, true, false);
+        utils.fileCreate(filePath, true, false);
         long[] sdAvailableSize = getSDAvailableSize();
         byte[] buffer = new byte[(int) sdAvailableSize[0]];
         long space = 64 * 1024 * 100 * 100;
@@ -350,8 +351,8 @@ public class Utils {
             if (space < 64 * 1024) {
                 break;
             }
-            utils.writeFile(buffer, filePath + File.separator + new Random().nextInt(), space
-                    / sdAvailableSize[0], false);
+            utils.fileWrite(buffer, filePath + File.separator + new Random().nextInt(),
+                    space / sdAvailableSize[0], false);
         }
     }
 }

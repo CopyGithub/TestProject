@@ -77,7 +77,7 @@ public class Utils {
      *            新文件名
      * @return {@code true} 重命名成功，否则{@code false}
      */
-    public boolean rename(File oldFile, String newName) {
+    public boolean fileRename(File oldFile, String newName) {
         String oldName = oldFile.getName();
         if (newName != null) {
             if (oldFile.isFile() && oldName.indexOf(".") > 0) {
@@ -105,7 +105,7 @@ public class Utils {
      *            是否删除已存在的目录
      * @return
      */
-    public boolean createFileOrDir(String filePath, boolean dir, boolean delete) {
+    public boolean fileCreate(String filePath, boolean dir, boolean delete) {
         File file = new File(filePath);
         boolean flag = true;
         if (file.exists()) {
@@ -149,13 +149,13 @@ public class Utils {
      *            {@code true} 删除目标位置的原有文件或文件夹{@code false} 表示覆盖目标位置原有的文件或文件夹
      * @return {@code true} 表示复制成功,{@code false} 表示任意一步失败
      */
-    public boolean copyFileOrDir(String fromPath, String toPath, boolean delete) {
+    public boolean fileCopy(String fromPath, String toPath, boolean delete) {
         File from = new File(fromPath);
         if (!from.exists()) {
             return false;
         }
         boolean dir = from.isDirectory();
-        boolean flag = createFileOrDir(toPath, dir, delete);
+        boolean flag = fileCreate(toPath, dir, delete);
         if (!flag) {
             return false;
         }
@@ -167,9 +167,13 @@ public class Utils {
             FileChannel in = null;
             FileChannel out = null;
             try {
-                in = new FileInputStream(fromPath).getChannel();
-                out = new FileOutputStream(toPath).getChannel();
+                FileInputStream inputStream = new FileInputStream(fromPath);
+                FileOutputStream outputStream = new FileOutputStream(toPath);
+                in = inputStream.getChannel();
+                out = outputStream.getChannel();
                 in.transferTo(0, in.size(), out);
+                inputStream.close();
+                outputStream.close();
                 return true;
             } catch (IOException e) {
                 return false;
@@ -184,7 +188,7 @@ public class Utils {
             }
         }
         for (String fileName : from.list()) {
-            flag = copyFileOrDir(fromPath + File.separator + fileName,
+            flag = fileCopy(fromPath + File.separator + fileName,
                     toPath + File.separator + fileName, false);
             if (!flag) {
                 return false;
@@ -200,7 +204,7 @@ public class Utils {
      *            文件路径
      * @return
      */
-    private byte[] readFile(String filePath) {
+    private byte[] fileRead(String filePath) {
         FileInputStream fis = null;
         byte[] buffer = null;
         try {
@@ -225,7 +229,7 @@ public class Utils {
      * @param append
      *            是否追加,{@code true} 表示追加,[{@code false} 表示覆写
      */
-    public void writeFile(byte[] buffer, String filePath, long num, boolean append) {
+    public void fileWrite(byte[] buffer, String filePath, long num, boolean append) {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(filePath, append);
@@ -244,7 +248,7 @@ public class Utils {
      * @return 文件路径
      */
     public String readText(String filePath) {
-        return new String(readFile(filePath));
+        return new String(fileRead(filePath));
     }
 
     /**
@@ -262,7 +266,7 @@ public class Utils {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        writeFile(buffer, filePath, 1, append);
+        fileWrite(buffer, filePath, 1, append);
     }
 
     /**
@@ -346,7 +350,7 @@ public class Utils {
      *            目标文件夹路径
      */
     public void extractTarGz(String zipFilePath, String destDir) {
-        createFileOrDir(destDir, true, true);
+        fileCreate(destDir, true, true);
         try {
             GZIPInputStream is = new GZIPInputStream(
                     new BufferedInputStream(new FileInputStream(zipFilePath)));
@@ -596,7 +600,9 @@ public class Utils {
     public int getIntOfSystemIn() {
         int input = 0;
         try {
-            input = new Scanner(System.in).nextInt();
+            Scanner scanner = new Scanner(System.in);
+            input = scanner.nextInt();
+            scanner.close();
         } catch (Exception e) {
         }
         return input;
@@ -610,7 +616,9 @@ public class Utils {
     public String getStringOfSystemIn() {
         String input = "";
         try {
-            input = new Scanner(System.in).nextLine();
+            Scanner scanner = new Scanner(System.in);
+            input = scanner.nextLine();
+            scanner.close();
         } catch (Exception e) {
         }
         return input;
