@@ -34,7 +34,8 @@ public class Task {
      * 
      * @param arg
      *            参数格式, 以";"分隔任务,以","分隔任务中的要数,如<br>
-     *            {@code h,launch,first_launcher,10;m,launch,first_launcher,10} <br>
+     *            {@code h,launch,first_launcher,10;m,launch,first_launcher,10}
+     *            <br>
      *            第一项表示设备, 参数为{@code h,m,l},大小写不限,参见{@link Res}下的
      *            {@code HIGH,MEDIUM,LOW}<br>
      *            第二项表示任务类型,参见{@link Res}下的性能测试点类型 <br>
@@ -63,8 +64,9 @@ public class Task {
                 break;
             }
         }
-//        new UploadData().selectUploadData(Res.PERFORMANCE_UPLOAD_URL, "requestMap.json="
-//                + new PerformanceReport().tidyJson(Res.DIR_RESULT));
+        // new UploadData().selectUploadData(Res.PERFORMANCE_UPLOAD_URL,
+        // "requestMap.json="
+        // + new PerformanceReport().tidyJson(Res.DIR_RESULT));
     }
 
     /**
@@ -72,7 +74,8 @@ public class Task {
      * 
      * @param arg
      *            参数格式, 以";"分隔任务,以","分隔任务中的要数,如<br>
-     *            {@code h,launch,first_launcher,10;m,launch,first_launcher,10} <br>
+     *            {@code h,launch,first_launcher,10;m,launch,first_launcher,10}
+     *            <br>
      *            第一项表示设备, 参数为{@code h,m,l},大小写不限,参见{@link Res}下的
      *            {@code HIGH,MEDIUM,LOW}<br>
      *            第二项表示任务类型,参见{@link Res}下的性能测试点类型 <br>

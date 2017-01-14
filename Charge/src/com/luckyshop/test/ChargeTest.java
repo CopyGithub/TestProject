@@ -46,7 +46,7 @@ public class ChargeTest extends LuckyShopBaseTest {
         ListView payList = (ListView) caseUtil.getViewByIndex("id/payMethodListView", 0);
         Button pay = (Button) solo.getView("id/chargeButton");
         int childNumber = payList.getChildCount();
-        assertTrue("没有支付方式～～～或者网络加载缓慢", childNumber > 0);
+        assertTrue("not charge list or network is slow", childNumber > 0);
         for (int i = 0; i < childNumber; i++) {
             if (!isChargeActivity()) {
                 solo.goBackToActivity(CHARGE_ACTIVITY);
