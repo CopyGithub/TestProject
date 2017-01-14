@@ -1,7 +1,7 @@
 package com.luckyshop.test;
 
 import com.basetest.Res;
-import com.basetest.luckyshop.LuckyShopBaseTest;
+import com.luckyshop.basetest.LuckyShopBase;
 
 import android.util.Log;
 import android.view.View;
@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ChargeTest extends LuckyShopBaseTest {
+public class ChargeTest extends LuckyShopBase {
     private final static String CHARGE_ACTIVITY = "com.aqsdk.pay.ChargeActivity";
 
     public void testCharge() {
